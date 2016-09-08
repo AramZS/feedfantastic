@@ -185,7 +185,9 @@ function validate_graf($graf){
 		'—',
 		'via',
 		'— ',
-		'This is a breaking news story'
+		'This is a breaking news story',
+		'(',
+		'Send a letter'
 
 	);
 	$words = explode(" ", $graf);
