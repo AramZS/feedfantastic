@@ -24,7 +24,7 @@ add_filter( 'the_permalink', function( $url ){
 });
 
 function strange_excerpt( $content ){
-	if ( 'fb' === $_GET['for'] ){
+	if ( (isset($_GET['for'])) && ('fb' === $_GET['for']) ){
 		global $strange_excerpt;
 		if ( 1 === $strange_excerpt){
 			$strange_excerpt = 2;
@@ -116,7 +116,7 @@ function strange_excerpt( $content ){
 add_filter( 'the_content', 'strange_excerpt', 11 );
 
 function unstrange_excerpt( $excerpt ){
-	if ( 'fb' === $_GET['for'] ){
+	if ( (isset($_GET['for'])) && ('fb' === $_GET['for']) ){
 		global $strange_excerpt;
 		$strange_excerpt = 1;
 	}
