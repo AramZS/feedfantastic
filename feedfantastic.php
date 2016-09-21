@@ -182,9 +182,9 @@ function validate_graf($graf){
 		'WireImage',
 		'Getty',
 		'Originally published',
-		'—',
+		'-',
 		'via',
-		'— ',
+		'—',
 		'This is a breaking news story',
 		'(',
 		'Send a letter',
@@ -195,6 +195,7 @@ function validate_graf($graf){
 		'More Reading',
 		'Also on',
 		"And don't forget",
+		"Update:",
 
 	);
 	$words = explode(" ", $graf);
