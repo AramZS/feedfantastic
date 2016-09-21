@@ -194,6 +194,7 @@ function validate_graf($graf){
 		'Watch',
 		'More Reading',
 		'Also on',
+		"And don't forget",
 
 	);
 	$words = explode(" ", $graf);
