@@ -190,6 +190,8 @@ function validate_graf($graf){
 		'Send a letter',
 		'Images via',
 		'ID',
+		'Related Story',
+		'Watch'
 
 	);
 	$words = explode(" ", $graf);
