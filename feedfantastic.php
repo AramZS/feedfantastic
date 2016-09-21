@@ -191,7 +191,8 @@ function validate_graf($graf){
 		'Images via',
 		'ID',
 		'Related Story',
-		'Watch'
+		'Watch',
+		'More Reading',
 
 	);
 	$words = explode(" ", $graf);
