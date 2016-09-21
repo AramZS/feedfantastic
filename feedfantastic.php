@@ -193,6 +193,7 @@ function validate_graf($graf){
 		'Related Story',
 		'Watch',
 		'More Reading',
+		'Also on',
 
 	);
 	$words = explode(" ", $graf);
