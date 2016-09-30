@@ -187,6 +187,7 @@ function validate_graf($graf){
 		'—',
 		'This is a breaking news story',
 		'(',
+		'[',
 		'Send a letter',
 		'Images via',
 		'ID',
