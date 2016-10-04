@@ -201,6 +201,7 @@ function validate_graf($graf){
 		"Update:",
 		'Source',
 		'Figure',
+		'Edit',
 
 	);
 	//var_dump($graf);
