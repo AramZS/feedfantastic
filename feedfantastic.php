@@ -30,7 +30,7 @@ function strange_excerpt( $content ){
 			$strange_excerpt = 2;
 			return $content;
 		}
-		$text = atest_closetags($content);
+		$text = $content;
 		$text = str_replace('\]\]\>', ']]&gt;', $text);
 		$text = preg_replace('@<script[^>]*?>.*?</script>@si', '', $text);
 		$text = strip_tags($text, '<p>');
@@ -42,19 +42,19 @@ function strange_excerpt( $content ){
 		$clean_content = $text;
 		$excerpt_length = 80; //Would prefer a char count. Not sure how to do it.
 		$words = explode(' ', $text, $excerpt_length + 1);
-		if (count($words)> $excerpt_length) {
+		if (count($words) > $excerpt_length) {
 		  array_pop($words);
 		  array_push($words, '...');
 		  $text = implode(' ', $words);
 		}
 
-		preg_match_all("/<p[^>]*>(.*)<\/p>/", atest_closetags($text), $matches);
+		preg_match_all("/<p[^>]*>(.*)<\/p>/", $text, $matches);
 
 		$coin_flip = random_int(1,2);
 		if ( ( true === false ) && (count($matches[0]) > 1) && $coin_flip > 1){
 			$text = str_replace($matches[0][0],'',$text);
 		} else {
-			preg_match_all("/<p[^>]*>(.*)<\/p>/", atest_closetags($clean_content), $matches_two);
+			preg_match_all("/<p[^>]*>(.*)<\/p>/", $clean_content, $matches_two);
 			$first_graf = atest_closetags(array_shift($matches_two[1]));
 			$source_statement = array_pop($matches_two[1]);
 //var_dump($source_statement, strpos($source_statement, 'Source'));
@@ -70,11 +70,13 @@ function strange_excerpt( $content ){
 					unset($matches_two[1][$key]);
 				}
 			}
+						//var_dump($matches_two[1]); die();
 //var_dump( $matches_two );
 			$total_grafs = (count($matches_two[1]))-1;
-			if ( $total_grafs > 0 ){
+			//var_dump($matches_two[1]);
+			if ( $total_grafs >= 0 ){
 				$rand_graf = random_int(0, $total_grafs);
-//var_dump($rand_graf);
+
 				$text = atest_closetags($matches_two[1][$rand_graf]);
 				if (!empty($matches_two[1][$rand_graf+1])){
 					$text .= "\r\n\r\n".'"'.atest_closetags($matches_two[1][$rand_graf+1]);
@@ -197,17 +199,24 @@ function validate_graf($graf){
 		'Also on',
 		"And don't forget",
 		"Update:",
+		'Source',
+		'Figure',
 
 	);
+	//var_dump($graf);
 	$words = explode(" ", $graf);
 	$wordcount = count($words);
-	if ( $wordcount < 6 ){
+	if ( !$wordcount || $wordcount < 6 ){
 		return false;
 	}
 	foreach ($cases as $case){
-		if (0 == stripos($graf, $case)){
+		if (0 === stripos($graf, $case)){
 			return false;
 		}
+	}
+
+	if (stripos($graf, '<img') >= 0){
+		return false;
 	}
 
 	return true;
