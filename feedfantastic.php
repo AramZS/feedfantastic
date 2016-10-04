@@ -170,6 +170,8 @@ add_filter( 'get_the_excerpt', 'unstrange_excerpt', 9 );
 
 function atest_closetags($html) {
 	$html = str_replace('"', "'", $html);
+	$html = str_replace('“', "'", $html);
+	$html = str_replace('”', "'", $html);
 	$html = str_replace(array('<article', '</article>'), array('<div', '</div>'), $html);
 	$html = str_replace(array('<!--', '-->'), array('<span class="commented-out-html" style="display:none;">', '</span>'), $html);
     $tags_and_content_to_strip = Array("title","script","link","meta","img");
