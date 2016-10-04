@@ -41,7 +41,7 @@ function strange_excerpt( $content ){
 		$text = trim($text);
 		$clean_content = $text;
 		$excerpt_length = 80; //Would prefer a char count. Not sure how to do it.
-		$words = explode(' ', $text, $excerpt_length + 1);
+		$words = explode(' ', $text, ($excerpt_length + 1) );
 		if (count($words) > $excerpt_length) {
 		  array_pop($words);
 		  array_push($words, '...');
@@ -70,18 +70,59 @@ function strange_excerpt( $content ){
 					unset($matches_two[1][$key]);
 				}
 			}
-						//var_dump($matches_two[1]); die();
+//var_dump($matches_two[1]); die();
 //var_dump( $matches_two );
 			$total_grafs = (count($matches_two[1]))-1;
-			//var_dump($matches_two[1]);
+			//var_dump($total_grafs);
 			if ( $total_grafs >= 0 ){
 				$rand_graf = random_int(0, $total_grafs);
+				//var_dump($matches_two[1]);
+				$restart = false;
+				while (!array_key_exists( $rand_graf, $matches_two[1] )) {
+					if ($rand_graf >= count($matches_two[1])){
+						if ($restart){
+							return $first_graf;
+						}
+						$rand_graf = 0;
+						$restart = true;
+					}
+					$rand_graf = $rand_graf+1;
+				}
+				$text = $matches_two[1][$rand_graf];
+				$text = atest_closetags($text);
+				$next_graf = $rand_graf+1;
+				$restart = false;
+				$back_walk = false;
+				$pre_next = '';
+				while (!array_key_exists( $next_graf, $matches_two[1] )) {
+					if ($next_graf >= count($matches_two[1]) ){
+						if ($restart){
+							$back_walk = true;
+							break;
+						}
+						$next_graf = 0;
+						$restart = true;
+					}
+					$pre_next = ' [...]';
+					$next_graf = $next_graf+1;
+				}
 
-				$text = atest_closetags($matches_two[1][$rand_graf]);
-				if (!empty($matches_two[1][$rand_graf+1])){
-					$text .= "\r\n\r\n".'"'.atest_closetags($matches_two[1][$rand_graf+1]);
-				} else if (!empty($matches_two[1][$rand_graf-1])){
-					$text = atest_closetags($matches_two[1][$rand_graf-1])."\r\n\r\n".'"'.$text;
+				$prev_graf = $rand_graf-1;
+				$restart = false;
+				$end_walk = false;
+				$post_last = '';
+				while (!array_key_exists( $prev_graf, $matches_two[1] )) {
+					if ($prev_graf <= 0 ){
+						$end_walk = true;
+						break;
+					}
+					$post_last = ' [...]';
+					$prev_graf = $prev_graf-1;
+				}
+				if ( !$back_walk && !empty($matches_two[1][$next_graf])){
+					$text .= $pre_next."\r\n\r\n".'"'.atest_closetags($matches_two[1][$next_graf]);
+				} else if ( !$end_walk && !empty($matches_two[1][$rand_graf-1])){
+					$text = atest_closetags($matches_two[1][$rand_graf-1]).$post_last."\r\n\r\n".'"'.$text;
 				}
 				while (empty($text) || ( $text == '<p></p>' ) ){
 					unset($matches_two[1][$rand_graf]);
@@ -131,7 +172,7 @@ function atest_closetags($html) {
 	$html = str_replace('"', "'", $html);
 	$html = str_replace(array('<article', '</article>'), array('<div', '</div>'), $html);
 	$html = str_replace(array('<!--', '-->'), array('<span class="commented-out-html" style="display:none;">', '</span>'), $html);
-    $tags_and_content_to_strip = Array("title","script","link","meta");
+    $tags_and_content_to_strip = Array("title","script","link","meta","img");
     foreach ($tags_and_content_to_strip as $tag) {
            $html = preg_replace("/<" . $tag . ">(.|\s)*?<\/" . $tag . ">/","",$html);
 		   $html = preg_replace("/<" . $tag . " (.|\s)*?>/","",$html);
@@ -201,22 +242,26 @@ function validate_graf($graf){
 		"Update:",
 		'Source',
 		'Figure',
-		'Edit',
+		'Edit'
 
 	);
 	//var_dump($graf);
 	$words = explode(" ", $graf);
 	$wordcount = count($words);
+	//var_dump($wordcount);
 	if ( !$wordcount || $wordcount < 6 ){
+		//var_dump($graf);
 		return false;
 	}
 	foreach ($cases as $case){
+		//var_dump($case);
+		//var_dump(stripos($graf, $case));
 		if (0 === stripos($graf, $case)){
 			return false;
 		}
 	}
-
-	if (stripos($graf, '<img') >= 0){
+	//var_dump(stripos($graf, '<img'));
+	if (stripos($graf, '<img') !== false){
 		return false;
 	}
 
