@@ -267,6 +267,7 @@ function validate_graf($graf){
 		'Addition',
 		'PGP Fingerprint',
 		'Catch up',
+		'Subscribe',
 
 	);
 	//var_dump($graf);
