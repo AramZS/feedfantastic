@@ -246,7 +246,8 @@ function validate_graf($graf){
 		'Figure',
 		'Edit',
 		'Addition',
-		'PGP Fingerprint'
+		'PGP Fingerprint',
+		'Catch up',
 
 	);
 	//var_dump($graf);
