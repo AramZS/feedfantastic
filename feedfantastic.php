@@ -23,8 +23,27 @@ add_filter( 'the_permalink', function( $url ){
 	return $url;
 });
 
+add_filter( 'post_link', function( $url ){
+	if ( 'select' === $_GET['for'] ){
+		$url = add_query_arg( array(
+			'utm_source'	=>	'facebook',
+			'utm_medium'	=>	'rss',
+			'utm_campaign'	=>	'selectnews'
+		), get_the_item_link());
+	}
+	return $url;
+});
+
+function ff_for_you(){
+	if ( (isset($_GET['for'])) && (('fb' === $_GET['for']) || ('select' === $_GET['for']) ) ){
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function strange_excerpt( $content ){
-	if ( (isset($_GET['for'])) && ('fb' === $_GET['for']) ){
+	if ( ff_for_you() ){
 		global $strange_excerpt;
 		if ( 1 === $strange_excerpt){
 			$strange_excerpt = 2;
@@ -159,7 +178,7 @@ function strange_excerpt( $content ){
 add_filter( 'the_content', 'strange_excerpt', 11 );
 
 function unstrange_excerpt( $excerpt ){
-	if ( (isset($_GET['for'])) && ('fb' === $_GET['for']) ){
+	if ( ff_for_you() ){
 		global $strange_excerpt;
 		$strange_excerpt = 1;
 	}
