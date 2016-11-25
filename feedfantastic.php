@@ -13,7 +13,7 @@ Author URI: http://aramzs.me
 */
 
 add_filter( 'the_permalink', function( $url ){
-	if ( 'fb' === $_GET['for'] ){
+	if ( isset($_GET['for']) && 'fb' === $_GET['for'] ){
 		$url = add_query_arg( array(
 			'utm_source'	=>	'facebook',
 			'utm_medium'	=>	'rss',
@@ -24,7 +24,7 @@ add_filter( 'the_permalink', function( $url ){
 });
 
 add_filter( 'post_link', function( $url ){
-	if ( 'select' === $_GET['for'] ){
+	if ( isset($_GET['for']) && 'select' === $_GET['for'] ){
 		$url = add_query_arg( array(
 			'utm_source'	=>	'facebook',
 			'utm_medium'	=>	'rss',
@@ -34,8 +34,19 @@ add_filter( 'post_link', function( $url ){
 	return $url;
 });
 
+add_filter( 'post_link', function( $url ){
+	if ( isset($_GET['summary']) && 'watch' === $_GET['summary'] && is_tag() ){
+		$url = add_query_arg( array(
+			'utm_source'	=>	get_queried_object()->slug,
+			'utm_medium'	=>	'rss',
+			'utm_campaign'	=>	'watch'
+		), get_the_item_link());
+	}
+	return $url;
+});
+
 function ff_for_you(){
-	if ( (isset($_GET['for'])) && (('fb' === $_GET['for']) || ('select' === $_GET['for']) ) ){
+	if ( (isset($_GET['for'])) && (('fb' === $_GET['for']) || ('select' === $_GET['for']) ) || ( (isset($_GET['summary'])) ) ){
 		return true;
 	} else {
 		return false;
