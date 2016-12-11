@@ -279,6 +279,12 @@ function validate_graf($graf){
 		'PGP Fingerprint',
 		'Catch up',
 		'Subscribe',
+		'Image',
+		'Photographer',
+		'Photo',
+		'Flickr',
+		'Getty',
+		'storytext'
 
 	);
 	//var_dump($graf);
