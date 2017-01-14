@@ -3,21 +3,19 @@
 class Watch_Mode {
 
 	public function __construct(){
-		if(!is_tag()){
-			return '';
-		}
+
 	}
 
 	public function call_the_watch(){
 		$term_id = get_queried_object()->term_id;
 	}
 
-	public function watched_assemble(){
+	public function watch_assemble(){
 
 	}
 
-	public function the_watched(){
-
+	public function a_watched_story($post){
+		
 	}
 
   	public function get_view_path( $view ){
