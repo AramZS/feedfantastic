@@ -21,9 +21,7 @@ $template = <<<EOT
 	<div class="watch-story__featured-media">
 		$featured_media
 	</div>
-	<div itemprop="description" class="watch-story__description">
-  		$description
-	</div>
+	$body
 	<footer>
 		<div class="watch-story__metas" itemprop="keywords">
 			<p itemprop="wordCount" class="watch-story__wordcount" content="$wordcount">Source story at $wordcount words.</p>
@@ -37,6 +35,6 @@ $template = <<<EOT
 		$hattip
 	</footer>
 </article>
-EOT;
+	EOT;
 
 echo $template;
