@@ -47,7 +47,7 @@ $page_og_data
   <body>
 
 	<header class="site-header">
-		$site_header
+		$site_nav
 	</header>
 EOT;
 

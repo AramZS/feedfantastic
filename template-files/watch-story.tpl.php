@@ -4,26 +4,30 @@
 * https://schema.org/NewsArticle
 */
 $template = <<<EOT
-<article id="$slug $post_id $item_id" class="$classes watch-story" itemscope itemtype="http://schema.org/Article">
-	<header>
-		<h3 class="watch-story__hed" itemprop="headline">$title</h3>
+<article id="$slug $post_id $item_id" class="$classes watch-story hentry" itemscope itemtype="http://schema.org/Article">
+	<header class="post-header">
+		<div class="title-box">
+			<h3 class="watch-story__hed" itemprop="headline">
+				<a href="post-link entry-title">$title</a>
+			</h3>
+		</div>
 		<div class="watch-story__credit">
 			$byline
 			<div class="watch-story__aggregator">
 				<a href="publishingPrinciples" src="$link_to_principles">Aggregated</a> by <span itempprop="translator">$user_name</span> for <span itemprop="publisher">$site_name</span>
 			</div>
 		</div>
-		<div>
+		<div class="post-meta watch-story__dateline">
 		   <meta itemprop="dateCreated" content="$date"/>
 		   <time pubdate="pubdate">$dateline</time>
 		</div>
 	</header>
-	<div class="watch-story__featured-media">
+	<div class="watch-story__featured-media post-image">
 		$featured_media
 	</div>
 	$body
 	<footer>
-		<div class="watch-story__metas" itemprop="keywords">
+		<div class="watch-story__metas post-meta" itemprop="keywords">
 			<p itemprop="wordCount" class="watch-story__wordcount" content="$wordcount">Source story at $wordcount words.</p>
 			<p>Section: $categories</p>
 			<p>Tagged: $keywords</p>

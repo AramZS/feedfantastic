@@ -4,7 +4,7 @@
 * https://schema.org/NewsArticle
 */
 $template = <<<EOT
-<div itemprop="articleBody" class="watch-story__articleBody">
+<div itemprop="articleBody" class="watch-story__articleBody post-content">
 	$text
 </div>
 EOT;
