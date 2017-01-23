@@ -28,7 +28,8 @@ $template = <<<EOT
 	$body
 	<footer>
 		<div class="watch-story__metas post-meta" itemprop="keywords">
-			<p itemprop="wordCount" class="watch-story__wordcount" content="$wordcount">Source story at $wordcount words.</p>
+			<p><span itemprop="timeRequired" class="watch-story__time-to-read reading-time"></span></p>
+			<p itemprop="wordCount" class="watch-story__wordcount wordcount" content="$wordcount">Source story at $wordcount words.</p>
 			<p>Section: $categories</p>
 			<p>Tagged: $keywords</p>
 		</div>
