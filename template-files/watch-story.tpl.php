@@ -14,7 +14,7 @@ $template = <<<EOT
 		<div class="watch-story__credit">
 			$byline
 			<div class="watch-story__aggregator">
-				<a href="publishingPrinciples" src="$link_to_principles">Aggregated</a> by <span itempprop="translator">$user_name</span> for <span itemprop="publisher">$site_name</span>
+				<a href="publishingPrinciples" src="$link_to_principles">Aggregated</a> by <span itempprop="translator">$aggregater</span> for <span itemprop="publisher">$site_name</span>
 			</div>
 		</div>
 		<div class="post-meta watch-story__dateline">
@@ -40,6 +40,7 @@ $template = <<<EOT
 		$hattip
 	</footer>
 </article>
+
 EOT;
 
 echo $template;

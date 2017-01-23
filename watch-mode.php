@@ -30,7 +30,7 @@ class Watch_Mode {
 		$story = new A_Story_Of_The_Watch($post);
 		$story_array = (array) $story;
 		$story_array['byline'] = $this->get_view('watch-byline', array( 'author_byline' => 'By '.$story->item_author) );
-		$story_array['featured_media'] = $this->get_view('watch-image', array( 'featured_image_src' => $story->item_author) );
+		$story_array['featured_media'] = $this->get_view('watch-image', array( 'featured_image_src' => $story->featured_media) );
 		$story_array['categories'] = '';
 		foreach ($story->categories as $category){
 			$story_array['categories'] .= $this->get_view('watch-category', array( 'term' => $category->category_nicename) );
@@ -42,11 +42,14 @@ class Watch_Mode {
 		$story_array['hattip'] = '';
 		$story_array['series'] = '';
 		$rendered_story = $this->get_view('watch-story', $story_array);
+		//var_dump($story_array);
+		return $rendered_story;
 	}
 
   	public function get_view_path( $view ){
-	    if ( ( file_exists( dirname( __FILE__ ) . './template-parts/' ) ) ) {
-	      $template_dir = dirname( __FILE__ ) . './template-parts/';
+		//var_dump(dirname( __FILE__ ) . './template-files/');
+	    if ( ( file_exists( dirname( __FILE__ ) . '/template-files/' ) ) ) {
+	      $template_dir = dirname( __FILE__ ) . '/template-files/';
 		} else {
 		  return false;
 		}

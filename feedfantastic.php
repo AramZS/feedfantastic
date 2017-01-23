@@ -311,3 +311,7 @@ function validate_graf($graf){
 
 
 }
+require_once "watch-tools.php";
+require_once "a-story-of-the-watch.php";
+require_once "call-the-watch.php";
+require_once "watch-mode.php";
