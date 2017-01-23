@@ -4,9 +4,11 @@
  */
 $template = <<<EOT
 <div itemprop="associatedMedia">
-  <span itemscope itemtype="http://schema.org/ImageObject"> 
-	<img itemprop="contentURL"
-	 src="$featured_image_src"/>
+	<meta itemprop="thumbnailUrl" src="$featured_image_src" />
+	<span itemscope itemtype="http://schema.org/ImageObject">
+		<img itemprop="contentURL"
+	 	src="$featured_image_src"/>
+	</span>
 </div>
 EOT;
 
