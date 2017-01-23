@@ -25,7 +25,7 @@ $template = <<<EOT
   <meta property="og:description" content="$description">
   <meta property="og:url" content="$link" />
   <meta property="og:locale" content="en_US" />
-  <meta name="twitter:site" content="$twitter_name" />
+  <meta name="twitter:site" content="@$twitter_name" />
   <meta name="twitter:description" content="$description" />
 
 $page_og_data

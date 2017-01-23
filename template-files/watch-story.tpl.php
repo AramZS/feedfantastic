@@ -35,6 +35,6 @@ $template = <<<EOT
 		$hattip
 	</footer>
 </article>
-	EOT;
+EOT;
 
 echo $template;

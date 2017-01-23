@@ -1,6 +1,6 @@
 <?php
 /**
-* Template file for opengraph data of the watch homepage
+* Template file for opengraph data of the watch article
 */
 $template = <<<EOT
 	<!-- Article specific OG data -->
@@ -20,7 +20,7 @@ $template = <<<EOT
 
 
   	<meta name="twitter:card" content="summary_large_image" />
-  	<meta name="twitter:creator" content="$author_twitter_name" />
+  	<meta name="twitter:creator" content="@$author_twitter_name" />
   	<meta name="twitter:title" content="$title" />
 
   	<meta property="og:image" content="$featured_image" />
