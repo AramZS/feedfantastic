@@ -2,11 +2,23 @@
 
 class Watch_Mode {
 
+	/**
+	 * Starts this class, call with this function.
+	 * @return [type] [description]
+	 */
+	public static function init() {
+		static $instance;
+		if ( ! is_a( $instance, 'Watch_Mode' ) ) {
+			$instance = new self();
+		}
+		return $instance;
+	}
+
 	public function __construct(){
 
 	}
 
-	public function call_the_watch(){
+	public function call_a_watch(){
 		$term_id = get_queried_object()->term_id;
 	}
 
@@ -15,7 +27,21 @@ class Watch_Mode {
 	}
 
 	public function a_watched_story($post){
-		
+		$story = new A_Story_Of_The_Watch($post);
+		$story_array = (array) $story;
+		$story_array['byline'] = $this->get_view('watch-byline', array( 'author_byline' => 'By '.$story->item_author) );
+		$story_array['featured_media'] = $this->get_view('watch-image', array( 'featured_image_src' => $story->item_author) );
+		$story_array['categories'] = '';
+		foreach ($story->categories as $category){
+			$story_array['categories'] .= $this->get_view('watch-category', array( 'term' => $category->category_nicename) );
+		}
+		$story_array['keywords'] = '';
+		foreach ($story->tags as $tag){
+			$story_array['keywords'] .= $this->get_view('watch-tag', array( 'term' => $tag->name) );
+		}
+		$story_array['hattip'] = '';
+		$story_array['series'] = '';
+		$rendered_story = $this->get_view('watch-story', $story_array);
 	}
 
   	public function get_view_path( $view ){
@@ -82,4 +108,17 @@ class Watch_Mode {
     public function the_view( $view, $vars = array(), $use_mu = false ){
       echo $this->get_view($view, $vars, $use_mu);
     }
+}
+
+/**
+ * Bootstrap
+ *
+ * You can also use this to get a value out of the global, eg
+ *
+ *    $foo = watch_tools()->bar;
+ *
+ * @since 1.0
+ */
+function watch_mode() {
+    return Watch_Mode::init();
 }

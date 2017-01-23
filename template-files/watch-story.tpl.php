@@ -8,7 +8,7 @@ $template = <<<EOT
 	<header class="post-header">
 		<div class="title-box">
 			<h3 class="watch-story__hed" itemprop="headline">
-				<a href="post-link entry-title">$title</a>
+				<a href="$story_link" class="post-link entry-title">$title</a>
 			</h3>
 		</div>
 		<div class="watch-story__credit">
@@ -34,9 +34,9 @@ $template = <<<EOT
 			<p>Tagged: $keywords</p>
 		</div>
 		<div class="watch-story__source">
-			Source: <a itemprop="isBasedOn" href="$item_link">$item_title</a> from <em><span itemprop="sourceOrganization">$item_source</span></em>
+			Source: <a itemprop="isBasedOn" href="$item_link">$title</a> from <em><span itemprop="sourceOrganization">$item_source</span></em>
 		</div>
-		<a class="watch-story__part-of" href="$watch_url" itemprop="isPartOf">This is a story of the watch on $topic.</a>
+		$series
 		$hattip
 	</footer>
 </article>
