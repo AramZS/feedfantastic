@@ -15,18 +15,101 @@ class Watch_Mode {
 	}
 
 	public function __construct(){
+		$this->default_classes = 'join-the-watch';
+		$this->link_to_principles = '';
+		$this->watch_endpoint = 'on-watch';
+		$this->site_data();
+		add_action('init', array($this, 'on_watch_init') );
+		add_action( 'template_redirect', array( $this, 'on_watch_view' ) );
+	}
 
+
+	public function on_watch_init(){
+		add_rewrite_endpoint( $this->watch_endpoint, EP_PERMALINK | EP_PAGES | EP_TAGS | EP_CATEGORIES | EP_ROOT );
+	}
+
+	/**
+	* embedable xml
+	* @return [type] [description]
+	*/
+	public function on_watch_view(){
+		global $wp_query;
+		if ( is_home() ){
+			echo $this->watch_assemble('homepage');
+		}
+		// if this is not a request for the view or singular object then bail
+		if ( ! isset( $wp_query->query_vars[$this->watch_endpoint] ) || ! is_singular() ){
+			return;
+		}
+
+		echo $this->a_watched_story(get_post());
+		exit;
 	}
 
 	public function call_a_watch(){
 		$term_id = get_queried_object()->term_id;
 	}
 
-	public function watch_assemble(){
-
+	public function site_data(){
+		$this->site_name = get_bloginfo('name');
 	}
 
-	public function a_watched_story($post){
+	public function site_info(){
+		$keys = array(
+			'site_name'
+		);
+		$info = array();
+		foreach ($keys as $key){
+			$info[$key] = $this->$key;
+		}
+		return $info;
+	}
+
+	public function site_nav(){
+		$keys = array(
+			'site_name'
+		);
+		$info = array();
+		foreach ($keys as $key){
+			$info[$key] = $this->$key;
+		}
+		return $info;
+	}
+
+	public function site_og(){
+		$keys = array(
+			'site_name'
+		);
+		$info = array();
+		foreach ($keys as $key){
+			$info[$key] = $this->$key;
+		}
+		return $info;
+	}
+
+	public function watch_assemble($term = 'homepage'){
+		$posts = '';
+		if ( have_posts() ) :
+
+			// Start the loop.
+			while ( have_posts() ) : the_post();
+
+				$posts .= $this->a_watched_story(get_post())."\n";
+
+			// End the loop.
+			endwhile;
+
+		endif;
+		$site_info = $this->site_info();
+		$site_info['site_nav'] = $this->site_nav();
+		$site_info['page_og_data'] = $this->site_og();
+		$header = $this->get_view('page/watch-page-header', $site_info);
+		$body = $this->get_view('page/body/watch-home', array( 'watch_stories' => $posts) );
+		$footer = $this->get_view('page/watch-page-footer', $this->site_footer() );
+		return $header."\n".$body."\n".$footer;
+	}
+
+	public function a_watched_story($post, $full = true){
 		$story = new A_Story_Of_The_Watch($post);
 		$story_array = (array) $story;
 		$story_array['byline'] = $this->get_view('watch-byline', array( 'author_byline' => 'By '.$story->item_author) );
@@ -41,6 +124,16 @@ class Watch_Mode {
 		}
 		$story_array['hattip'] = '';
 		$story_array['series'] = '';
+		if ($full){
+			$story_array['body'] = $this->get_view('watch-story-body', array('text' => $story->story_body));
+		} else {
+			$story_array['body'] = $this->get_view('watch-story-description', array('text' => $story->story_body));
+		}
+
+		$story_array['site_name'] = $this->site_name;
+		$story_array['classes'] = $this->default_classes.' ';
+		$story_array['link_to_principles'] = $this->link_to_principles;
+
 		$rendered_story = $this->get_view('watch-story', $story_array);
 		//var_dump($story_array);
 		return $rendered_story;
@@ -125,3 +218,5 @@ class Watch_Mode {
 function watch_mode() {
     return Watch_Mode::init();
 }
+
+watch_mode();
