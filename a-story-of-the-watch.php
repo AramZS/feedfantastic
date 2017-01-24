@@ -20,6 +20,7 @@ class A_Story_Of_The_Watch {
 		$this->aggregater = $this->aggregater_object->display_name;
 		$this->featured_media = get_the_post_thumbnail_url($post);
 		$this->permalink = get_post_permalink($post->ID);
+		$this->story_link = get_post_permalink($post->ID);
 		$this->categories = get_the_category($post->ID);
 		$this->tags = get_the_tags($post->ID);
 		$this->wordcount = str_word_count($this->story_body);
