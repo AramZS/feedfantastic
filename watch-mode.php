@@ -139,6 +139,10 @@ class Watch_Mode {
 		return $rendered_story;
 	}
 
+	public function site_footer(){
+		return array();
+	}
+
   	public function get_view_path( $view ){
 		//var_dump(dirname( __FILE__ ) . './template-files/');
 	    if ( ( file_exists( dirname( __FILE__ ) . '/template-files/' ) ) ) {
