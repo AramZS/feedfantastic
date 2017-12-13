@@ -53,6 +53,20 @@ function ff_for_you(){
 	}
 }
 
+function startsWith($haystack, $needle)
+{
+     $length = strlen($needle);
+     return (substr($haystack, 0, $length) === $needle);
+}
+
+function endsWith($haystack, $needle)
+{
+    $length = strlen($needle);
+
+    return $length === 0 || 
+    (substr($haystack, -$length) === $needle);
+}
+
 function strange_excerpt( $content ){
 	if ( ff_for_you() ){
 		global $strange_excerpt;
@@ -305,6 +319,10 @@ function validate_graf($graf){
 	}
 	//var_dump(stripos($graf, '<img'));
 	if (stripos($graf, '<img') !== false){
+		return false;
+	}
+	
+	if (endsWith($graf, ':')){
 		return false;
 	}
 
