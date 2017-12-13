@@ -284,7 +284,8 @@ function validate_graf($graf){
 		'Photo',
 		'Flickr',
 		'Getty',
-		'storytext'
+		'storytext',
+		'Sign up for'
 
 	);
 	//var_dump($graf);
