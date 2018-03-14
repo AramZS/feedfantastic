@@ -300,7 +300,9 @@ function validate_graf($graf){
 		'Getty',
 		'storytext',
 		'Sign up for',
-		'Sign in'
+		'Sign in',
+		'Thank you',
+		'Thank You'
 
 	);
 	//var_dump($graf);
