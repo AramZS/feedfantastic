@@ -302,7 +302,31 @@ function validate_graf($graf){
 		'Sign up for',
 		'Sign in',
 		'Thank you',
-		'Thank You'
+		'Thank You',
+		'END CLASS=',
+		'Deputy executive editor',
+		'Editor',
+		'Executive editor',
+		'DS.service',
+		'DS',
+		'Sign in',
+		'Excerpt',
+		'THIS IS A GENERATED TEMPLATE FILE',
+		'By',
+		'**',
+		'Clio Chang is a staff writer',
+		'Update',
+		'You can watch',
+		'Source:'
+		'credit',
+		'close',
+		'Cover Photo',
+		'Excerpts have been',
+		'Staff writer',
+		'react-text'
+		'Above:',
+		'Below:',
+		'Left:'
 
 	);
 	//var_dump($graf);
