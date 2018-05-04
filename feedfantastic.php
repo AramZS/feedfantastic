@@ -326,7 +326,9 @@ function validate_graf($graf){
 		'react-text'
 		'Above:',
 		'Below:',
-		'Left:'
+		'Left:',
+		'Source:',
+		'<!'
 
 	);
 	//var_dump($graf);
