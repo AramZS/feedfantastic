@@ -328,7 +328,9 @@ function validate_graf($graf){
 		'Below:',
 		'Left:',
 		'Source:',
-		'<!'
+		'<!',
+		'Correction',
+		'is the author'
 
 	);
 	//var_dump($graf);
